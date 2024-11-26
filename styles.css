@@ -15,6 +15,18 @@ body {
   line-height: 1.5;
   /* 4. Improve text rendering */
   -webkit-font-smoothing: antialiased;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
 /* 5. Improve media defaults */
@@ -65,4 +77,161 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+/* BODY CONTAINER */
+.body-container {
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-areas:
+    "sidebar header header header"
+    "sidebar header header header"
+    "sidebar main main main"
+    "sidebar main main main"
+    "sidebar main main main"
+    "sidebar main main main"
+    "sidebar main main main";
+  gap: 10px;
+}
+
+/* HEADER CONTAINER */
+.header {
+  grid-area: header;
+  background-color: lightgreen;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-rows: repeat(2, 1fr);
+  padding: 20px;
+}
+/* Search */
+.search-container svg {
+  fill: black; /* Icon color */
+  width: 20px;
+  height: 20px;
+}
+.search-container {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  display: grid;
+  align-items: start;
+  padding: 10px;
+}
+
+.search-container .search-input {
+  transform: translateY(-5px);
+  width: 150px;
+}
+/* Notification */
+.notifications-container svg {
+  fill: black; /* Icon color */
+  width: 20px;
+  height: 20px;
+}
+
+.notifications-container {
+  border: 1px solid #ccc;
+  display: grid;
+  align-items: start;
+  justify-items: end;
+  gap: 10px;
+  padding: 10px;
+}
+/*Profile*/
+.profile-container svg {
+  fill: black; /* Icon color */
+  width: 20px;
+  height: 20px;
+}
+.profile-container {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  display: grid;
+  align-items: start;
+  padding: 10px;
+}
+.profile-container img {
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
+/*Profile-greeting*/
+.profile-greeting-container {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  display: grid;
+  align-items: start;
+  padding: 10px;
+}
+.profile-greeting-container img {
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
+/*Action*/
+.action-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+}
+.action-container > button {
+  width: 50px;
+  font-size: 0.7rem;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  background-color: #1da1f2;
+  color: white;
+}
+
+/* SIDEBAR CONTAINER */
+.sidebar {
+  grid-area: sidebar;
+  background-color: lightblue;
+  padding: 20px;
+}
+
+.sidebar .menu svg {
+  fill: black; /* Icon color */
+  width: 20px;
+  height: 20px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.menu-list svg {
+  fill: #1da1f2; /* Icon color */
+  width: 20px;
+  height: 20px;
+}
+
+/* MAIN CONTAINER */
+.main-content {
+  grid-area: main;
+  background-color: lightcoral;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.project-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1);
 }
