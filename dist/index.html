@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../font+icons/boxicons-2.1.4/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <button id="menu-btn" class="menu-btn" aria-label="Toggle Navigation" aria-expanded="false">
+                <i class='bx bx-menu icon'></i>
+            </button>
+            <form class="search-form" action="/search" method="GET">
+                <button type="button" class="search-btn">
+                    <i class='bx bx-search-alt-2 icon'></i>
+                </button>
+            </form>
+
+            <div class="notifications">
+                <button class="notification-btn">
+                    <i class='bx bx-bell icon'></i>
+                </button>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="user-info">
+                <img src="./user-profile.jpg" alt="User Profile Photo">
+                <div class="user-name">John Doe</div>
+            </div>
+        </div>
+        
+        <div class="header-right">
+
+
+            <div class="user-actions">
+                <button class="add-btn"><i class='bx bx-folder-plus icon'></i></button>
+                <button class="upload-btn"><i class='bx bx-upload icon'></i></button>
+                <button class="share-btn"><i class='bx bx-share-alt icon'></i></button>
+            </div>
+        </div>
+
+        <nav id="nav-sidebar" class="nav-sidebar" aria-label="Main Navigation">
+            <ul>
+                <li><a href="#"><i class='bx bx-home icon'></i> Home</a></li>
+                <li><a href="#"><i class='bx bx-user-circle icon'></i> Profile</a></li>
+                <li><a href="#"><i class='bx bx-message icon'></i> Messages</a></li>
+                <li><a href="#"><i class='bx bx-time icon'></i> History</a></li>
+                <li><a href="#"><i class='bx bx-task icon'></i> Tasks</a></li>
+                <li><a href="#"><i class='bx bx-group icon'></i> Communities</a></li>
+                <li><a href="#"><i class='bx bx-cog icon'></i> Settings</a></li>
+                <li><a href="#"><i class='bx bx-support icon'></i> Support</a></li>
+                <li><a href="#"><i class='bx bx-check-shield icon'></i> Privacy</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-backdrop"></div>
+    </header>
+
+    <main class="main-content">
+        <div class="main-content-left">
+        <section class="projects">
+            <div class="main-content-header">
+            <h2>Projects</h2>
+        </div>
+        <div class="project-grid">
+        </div>
+    </div>
+    <div class="main-content-right">
+        <section class="announcements">
+            <div class="main-content-header">
+                <h2>Announcements</h2>
+            </div>
+            <div class="announcement-card">
+                <article class="card">
+                    <h4>Site Maintenence</h4><br>
+                    <p>Announcement description placeholder text.</p><br>
+                    <h4>Community Share Day</h4><br>
+                    <p>Announcement description placeholder text.</p><br>
+                    <h4>Update Privacy Policy</h4><br>
+                    <p>Announcement description placeholder text.</p><br>
+                </article>
+            </div>
+        </section>
+
+        <section class="trending">
+            <div class="main-content-header">
+                <h2>Trending</h2>
+            </div>
+            <div class="trending-card">
+                <article class="card">
+                    <h4>Trending Title</h4>
+                    <p>Trending description placeholder text.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+
+
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
