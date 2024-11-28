@@ -273,19 +273,15 @@ transform: translateY(1px);
 }
 
 .share-dropdown {
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  width: 250px;
+  display: flex;
+  flex-direction: column;
 }
 
-.share-header {
+.share-dropdown .share-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  color: var(--secondary-color);
 }
 
 .share-list {
@@ -298,7 +294,6 @@ transform: translateY(1px);
   padding: 10px;
   cursor: pointer;
   transition: var(--transition);
-  border-radius: 4px;
 }
 
 .share-list li:hover {

@@ -16,13 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const createDropdownContainer = (className, content) => {
+    const createDropdownContainer = (className, contentCreator) => {
         const dropdown = document.createElement('div');
         dropdown.classList.add('dropdown-menu', className);
-        dropdown.innerHTML = content;
         
         const backdrop = document.createElement('div');
         backdrop.classList.add('dropdown-backdrop');
+        
+        // Call the content creator function to populate the dropdown
+        const content = contentCreator();
+        dropdown.appendChild(content);
         
         document.body.appendChild(dropdown);
         document.body.appendChild(backdrop);
@@ -31,25 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const searchBtn = document.querySelector('.search-btn');
-    const searchInput = document.querySelector('.search-input');
 
-    const { dropdown: searchDropdown, backdrop: searchBackdrop } = createDropdownContainer('search-dropdown', `
-        <div class="search-dropdown">
-            <input type="search" class="search-input" placeholder="Search...">
-        </div>
-    `);
+    const { dropdown: searchDropdown, backdrop: searchBackdrop } = createDropdownContainer('search-dropdown', () => {
+        const searchDropdownContainer = document.createElement('div');
+        searchDropdownContainer.classList.add('search-dropdown');
+        
+        const searchInput = document.createElement('input');
+        searchInput.type = 'search';
+        searchInput.classList.add('search-input');
+        searchInput.placeholder = 'Search...';
+        
+        searchDropdownContainer.appendChild(searchInput);
+        return searchDropdownContainer;
+    });
 
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const isOpen = searchDropdown.classList.toggle('open');
         if (isOpen) {
             searchDropdown.querySelector('.search-input').focus();
-        }
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!searchBtn.contains(e.target) && !searchDropdown.contains(e.target)) {
-            searchDropdown.classList.remove('open');
         }
     });
 
@@ -61,36 +64,66 @@ document.addEventListener('DOMContentLoaded', () => {
         { message: "Team meeting scheduled", time: "Yesterday", icon: 'calendar' }
     ];
 
-    const { dropdown: notificationDropdown, backdrop: notificationBackdrop } = createDropdownContainer('notification-dropdown', `
-        <div class="notification-header">
-            <h3>Notifications</h3>
-            <span class="mark-read">Mark all as read</span>
-        </div>
-        <ul class="notification-list">
-            ${notifications.map(note => `
-                <li>
-                    <box-icon name="${note.icon}" class="bx bx-${note.icon} note-icon"></box-icon>
-                    <div class="notification-content">
-                        <p>${note.message}</p>
-                        <small>${note.time}</small>
-                    </div>
-                </li>
-            `).join('')}
-        </ul>
-        <div class="notification-footer">
-            <a href="#">View all notifications</a>
-        </div>
-    `);
+    const { dropdown: notificationDropdown, backdrop: notificationBackdrop } = createDropdownContainer('notification-dropdown', () => {
+        const notificationContainer = document.createElement('div');
+        
+        // Notification Header
+        const notificationHeader = document.createElement('div');
+        notificationHeader.classList.add('notification-header');
+        
+        const headerTitle = document.createElement('h3');
+        headerTitle.textContent = 'Notifications';
+        
+        const markReadSpan = document.createElement('span');
+        markReadSpan.classList.add('mark-read');
+        markReadSpan.textContent = 'Mark all as read';
+        
+        notificationHeader.append(headerTitle, markReadSpan);
+        
+        // Notification List
+        const notificationList = document.createElement('ul');
+        notificationList.classList.add('notification-list');
+        
+        notifications.forEach(note => {
+            const listItem = document.createElement('li');
+            
+            const icon = document.createElement('box-icon');
+            icon.setAttribute('name', note.icon);
+            icon.classList.add('bx', `bx-${note.icon}`, 'note-icon');
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.classList.add('notification-content');
+            
+            const messageP = document.createElement('p');
+            messageP.textContent = note.message;
+            
+            const timeSmall = document.createElement('small');
+            timeSmall.textContent = note.time;
+            
+            contentDiv.append(messageP, timeSmall);
+            listItem.append(icon, contentDiv);
+            notificationList.appendChild(listItem);
+        });
+        
+        // Notification Footer
+        const notificationFooter = document.createElement('div');
+        notificationFooter.classList.add('notification-footer');
+        
+        const viewAllLink = document.createElement('a');
+        viewAllLink.href = '#';
+        viewAllLink.textContent = 'View all notifications';
+        
+        notificationFooter.appendChild(viewAllLink);
+        
+        // Assemble all parts
+        notificationContainer.append(notificationHeader, notificationList, notificationFooter);
+        
+        return notificationContainer;
+    });
 
     notificationBtn.addEventListener('click', (e) => {
         e.preventDefault();
         notificationDropdown.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
-            notificationDropdown.classList.remove('open');
-        }
     });
 
     const shareBtn = document.querySelector('.share-btn');
@@ -101,36 +134,67 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Share to Teams", icon: 'windows' },
     ];
 
-    const { dropdown: shareDropdown, backdrop: shareBackdrop } = createDropdownContainer('share-dropdown', `
-        <div class="share-dropdown">
-            <div class="share-header">
-                <h3>Share Options</h3>
-            </div>
-            <ul class="share-list">
-                ${shareOptions.map(option => `
-                    <li>
-                        <box-icon name="${option.icon}" class="bx bx-${option.icon} share-icon"></box-icon>
-                        <span class="share-option-text">${option.name}</span>
-                    </li>
-                `).join('')}
-            </ul>
-        </div>
-    `);
-
-    
+    const { dropdown: shareDropdown, backdrop: shareBackdrop } = createDropdownContainer('share-dropdown', () => {
+        const shareContainer = document.createElement('div');
+        shareContainer.classList.add('share-dropdown');
+        
+        // Share Header
+        const shareHeader = document.createElement('div');
+        shareHeader.classList.add('share-header');
+        
+        const headerTitle = document.createElement('h3');
+        headerTitle.textContent = 'Share Options';
+        
+        shareHeader.appendChild(headerTitle);
+        
+        // Share List
+        const shareList = document.createElement('ul');
+        shareList.classList.add('share-list');
+        
+        shareOptions.forEach(option => {
+            const listItem = document.createElement('li');
+            
+            const icon = document.createElement('box-icon');
+            icon.setAttribute('name', option.icon);
+            icon.classList.add('bx', `bx-${option.icon}`, 'share-icon');
+            
+            const optionSpan = document.createElement('span');
+            optionSpan.classList.add('share-option-text');
+            optionSpan.textContent = option.name;
+            
+            listItem.append(icon, optionSpan);
+            shareList.appendChild(listItem);
+        });
+        
+        shareContainer.append(shareHeader, shareList);
+        
+        return shareContainer;
+    });
 
     shareBtn.addEventListener('click', (e) => {
         e.preventDefault();
         shareDropdown.classList.toggle('open');
     });
 
+    // Global click event listeners to close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
+        // Search dropdown
+        if (!searchBtn.contains(e.target) && !searchDropdown.contains(e.target)) {
+            searchDropdown.classList.remove('open');
+        }
+
+        // Notification dropdown
+        if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
+            notificationDropdown.classList.remove('open');
+        }
+
+        // Share dropdown
         if (!shareBtn.contains(e.target) && !shareDropdown.contains(e.target)) {
             shareDropdown.classList.remove('open');
         }
     });
 
-
+    // Backdrop click events
     [searchBackdrop, notificationBackdrop, shareBackdrop].forEach(backdrop => {
         backdrop.addEventListener('click', () => {
             searchDropdown.classList.remove('open');
@@ -139,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Responsive handling
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             searchDropdown.classList.remove('open');
@@ -146,10 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
             shareDropdown.classList.remove('open');
         }
     });
-});
 
-
-document.addEventListener('DOMContentLoaded', () => {
+    // Project Management
     const addBtn = document.querySelector('.add-btn');
     const projectGrid = document.querySelector('.project-grid');
 
@@ -161,18 +224,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectCard = document.createElement('article');
         projectCard.classList.add('project-card');
         projectCard.setAttribute('data-project-id', generateProjectId());
-        projectCard.innerHTML = `
-            <div class="project-card-header">
-                <h3 contenteditable="true">${title}</h3>
-                <button class="delete-project-btn">
-                    <i class='bx bx-x'></i>
-                </button>
-            </div>
-            <h4>Description:</h4>
-            <p contenteditable="true">${description}</p>
-        `;
+        
+        // Card Header
+        const cardHeader = document.createElement('div');
+        cardHeader.classList.add('project-card-header');
+        
+        const titleElement = document.createElement('h3');
+        titleElement.contentEditable = 'true';
+        titleElement.textContent = title;
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-project-btn');
+        
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('bx', 'bx-x');
+        deleteBtn.appendChild(deleteIcon);
+        
+        cardHeader.append(titleElement, deleteBtn);
+        
+        // Description
+        const descriptionLabel = document.createElement('h4');
+        descriptionLabel.textContent = 'Description:';
+        
+        const descriptionElement = document.createElement('p');
+        descriptionElement.contentEditable = 'true';
+        descriptionElement.textContent = description;
+        
+        projectCard.append(cardHeader, descriptionLabel, descriptionElement);
 
-        const deleteBtn = projectCard.querySelector('.delete-project-btn');
         deleteBtn.addEventListener('click', () => {
             projectCard.remove();
             saveProjects();
@@ -185,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newProjectCard = createProjectCard();
         projectGrid.appendChild(newProjectCard);
 
-        const newProjectTitle = newProjectCard.querySelector('h2');
+        const newProjectTitle = newProjectCard.querySelector('h3');
         newProjectTitle.focus();
 
         saveProjects();
@@ -194,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveProjects = () => {
         const projects = Array.from(projectGrid.querySelectorAll('.project-card')).map(card => ({
             id: card.getAttribute('data-project-id'),
-            title: card.querySelector('h2').textContent,
+            title: card.querySelector('h3').textContent,
             description: card.querySelector('p').textContent
         }));
         localStorage.setItem('dashboard-projects', JSON.stringify(projects));
@@ -202,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadProjects = () => {
         const savedProjects = JSON.parse(localStorage.getItem('dashboard-projects') || '[]');
-        if (savedProjects.length === 0) return; // Do nothing if there are no saved projects.
+        if (savedProjects.length === 0) return;
         savedProjects.forEach(project => {
             const projectCard = createProjectCard(project.title, project.description);
             projectCard.setAttribute('data-project-id', project.id);
@@ -215,4 +294,3 @@ document.addEventListener('DOMContentLoaded', () => {
     projectGrid.addEventListener('input', saveProjects);
     projectGrid.addEventListener('click', saveProjects);
 });
-
