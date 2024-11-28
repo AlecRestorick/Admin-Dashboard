@@ -133,6 +133,10 @@ header {
   border-radius: 4px;
 }
 
+.search-dropdown .search-input:hover{
+background-color: var(--tertiary-color);
+}
+
 .notification-dropdown {
   display: flex;
   flex-direction: column;
@@ -153,6 +157,11 @@ header {
   display: flex;
   align-items: center;
   padding: 10px;
+}
+
+.notification-dropdown li:hover {
+background-color: var(--tertiary-color);
+cursor:pointer;
 }
 
 .notification-dropdown .notification-footer {

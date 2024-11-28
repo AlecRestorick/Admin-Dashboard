@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const backdrop = document.createElement('div');
         backdrop.classList.add('dropdown-backdrop');
         
-        // Call the content creator function to populate the dropdown
         const content = contentCreator();
         dropdown.appendChild(content);
         
@@ -80,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         notificationHeader.append(headerTitle, markReadSpan);
         
-        // Notification List
         const notificationList = document.createElement('ul');
         notificationList.classList.add('notification-list');
         
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             notificationList.appendChild(listItem);
         });
         
-        // Notification Footer
         const notificationFooter = document.createElement('div');
         notificationFooter.classList.add('notification-footer');
         
@@ -115,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         notificationFooter.appendChild(viewAllLink);
         
-        // Assemble all parts
         notificationContainer.append(notificationHeader, notificationList, notificationFooter);
         
         return notificationContainer;
@@ -138,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const shareContainer = document.createElement('div');
         shareContainer.classList.add('share-dropdown');
         
-        // Share Header
         const shareHeader = document.createElement('div');
         shareHeader.classList.add('share-header');
         
@@ -147,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         shareHeader.appendChild(headerTitle);
         
-        // Share List
         const shareList = document.createElement('ul');
         shareList.classList.add('share-list');
         
@@ -176,25 +170,23 @@ document.addEventListener('DOMContentLoaded', () => {
         shareDropdown.classList.toggle('open');
     });
 
-    // Global click event listeners to close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-        // Search dropdown
+
         if (!searchBtn.contains(e.target) && !searchDropdown.contains(e.target)) {
             searchDropdown.classList.remove('open');
         }
 
-        // Notification dropdown
+
         if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
             notificationDropdown.classList.remove('open');
         }
 
-        // Share dropdown
+
         if (!shareBtn.contains(e.target) && !shareDropdown.contains(e.target)) {
             shareDropdown.classList.remove('open');
         }
     });
 
-    // Backdrop click events
     [searchBackdrop, notificationBackdrop, shareBackdrop].forEach(backdrop => {
         backdrop.addEventListener('click', () => {
             searchDropdown.classList.remove('open');
@@ -203,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Responsive handling
+
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             searchDropdown.classList.remove('open');
@@ -212,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Project Management
+
     const addBtn = document.querySelector('.add-btn');
     const projectGrid = document.querySelector('.project-grid');
 
@@ -225,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projectCard.classList.add('project-card');
         projectCard.setAttribute('data-project-id', generateProjectId());
         
-        // Card Header
+
         const cardHeader = document.createElement('div');
         cardHeader.classList.add('project-card-header');
         
@@ -242,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         cardHeader.append(titleElement, deleteBtn);
         
-        // Description
+
         const descriptionLabel = document.createElement('h4');
         descriptionLabel.textContent = 'Description:';
         
